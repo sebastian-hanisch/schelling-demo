@@ -105,7 +105,7 @@ st.markdown(
     """
 **Zwölftes Stück** der Reihe „Netzwerkanalyse“ und viertes und letztes des **Anpassungs-Arms**: in Stück 9 bis 11 ändern die Betriebe ihre Meinung, hier ändern sie **ihren Standort**. Zwei Betriebstypen (zum Beispiel Kühl- und Trockenfracht) sitzen in einem Gewerbegebiet; ein Betrieb zieht um, wenn ihm zu wenige Nachbarn vom eigenen Typ sind. Das Nachbarschaftsnetz ist damit nicht vorgegeben, sondern **entsteht aus dem Verhalten** (anders als in Stück 11, wo das Netz fest war).
 
-Die Kernfrage: **Wie stark entmischt das Gebiet, und endet das überhaupt?** Der Hook: schon eine **milde Vorliebe** (Schwelle τ = 30 %: ein Betrieb will mindestens drei von zehn Nachbarn vom eigenen Typ) entmischt das Gebiet stark. Ob die Umzüge zur Ruhe kommen, hängt dagegen an der **Zugregel**: wer nur auf eine Fläche zieht, auf der er zufrieden wäre, **blockiert** bei hoher Schwelle, wer auf eine beliebige freie Fläche zieht, endet. Dazu: freie Flächen verstärken die Entmischung, und der Entmischungsindex ist bis auf eine Konstante die **Modularität** der Typen-Partition aus Stück 2. Alle Ergebnisse sind **Modellbefunde** über Betriebe als Punkte mit gleicher Schwelle, keine Aussagen über Städte oder Bevölkerung.
+Die Kernfrage: **Wie stark entmischt das Gebiet, und endet das überhaupt?** Der Hook: schon eine **milde Vorliebe** (Schwelle τ = 30 %: ein Betrieb will mindestens drei von zehn Nachbarn vom eigenen Typ) entmischt das Gebiet stark. Ob die Umzüge zur Ruhe kommen, hängt dagegen an der **Zugregel**: wer nur auf eine Fläche zieht, auf der er zufrieden wäre, **blockiert** bei hoher Schwelle, wer auf eine beliebige freie Fläche zieht, endet. Dazu: freie Flächen verstärken die Entmischung, und der Anteil gleichartiger Kanten ist bis auf eine Konstante die **Modularität** der Typen-Partition aus Stück 2 (der Entmischungsindex liegt nahe daran). Alle Ergebnisse sind **Modellbefunde** über Betriebe als Punkte mit gleicher Schwelle, keine Aussagen über Städte oder Bevölkerung.
 
 Weiter unten: vier Experimente (**🔬**), der Abschnitt **🚧 Wo die Annahmen enden** und der Expander **📐 Mathematische Formulierung**.
 """
@@ -265,7 +265,7 @@ st.caption(f"Regel „zufrieden“, belegter Anteil {pct(C.BRIDGE_RHO)} %, Schwe
 def show_bridge(rows):
     st.markdown("**Entmischungsindex am Ende** (gestrichelt: Anfangswert)")
     st.plotly_chart(build_bridge_similarity(rows), width="stretch", key="bridge_sim_chart")
-    st.markdown("**Entmischungsindex ist Modularität:** Modularität der Typen gegen Anteil gleichartiger Kanten − ½")
+    st.markdown("**Anteil gleichartiger Kanten bis auf eine Konstante gleich Modularität:** Modularität der Typen gegen Anteil gleichartiger Kanten − ½")
     st.plotly_chart(build_bridge_identity(rows), width="stretch", key="bridge_id_chart")
     kind_, text_ = verdict_bridge(rows)
     getattr(st, kind_)(text_)
