@@ -3,13 +3,13 @@
 <!-- TODO nach dem Deploy: direkt hierher den Live-Link setzen (Leerzeile davor und danach):
 **[→ Demo live ausprobieren](https://sebastianhanisch-schelling-demo.streamlit.app/)** -->
 
-Zwölftes Stück der **Netzwerkanalyse-Reihe** in der „Konzepte“-Reihe für die Website „Sebastian Hanisch – Operations Research und Machine Learning“ und viertes und letztes des **Anpassungs-Arms** (Stücke 9 bis 12): in der [Meinungsbildungs-Demo](https://sebastianhanisch-meinungsbildung-demo.streamlit.app/) (Stück 9), der [Voter-Demo](https://sebastianhanisch-voter-modell-demo.streamlit.app/) (Stück 10) und der [Demo zu begrenztem Vertrauen](https://sebastianhanisch-begrenztes-vertrauen-demo.streamlit.app/) (Stück 11) ändern die Betriebe ihre Meinung auf einem festen Netz; hier ändern sie **ihren Standort**, und das Nachbarschaftsnetz **entsteht aus dem Verhalten**. Die Modularität, mit der sich das Ergebnis messen lässt, kommt aus der [Blockmodell-Demo](https://sebastianhanisch-stochastic-block-demo.streamlit.app/) (Stück 2).
+Eine von mehreren Demos zur **Netzwerkanalyse** für die Website „Sebastian Hanisch – Operations Research und Machine Learning“, und die vierte und letzte der Demos, in denen sich Betriebe an ihre Nachbarn anpassen: in der [Meinungsbildungs-Demo](https://sebastianhanisch-meinungsbildung-demo.streamlit.app/), der [Voter-Demo](https://sebastianhanisch-voter-modell-demo.streamlit.app/) und der [Demo zu begrenztem Vertrauen](https://sebastianhanisch-begrenztes-vertrauen-demo.streamlit.app/) ändern die Betriebe ihre Meinung auf einem festen Netz; hier ändern sie **ihren Standort**, und das Nachbarschaftsnetz **entsteht aus dem Verhalten**. Die Modularität, mit der sich das Ergebnis messen lässt, kommt aus der [Blockmodell-Demo](https://sebastianhanisch-stochastic-block-demo.streamlit.app/).
 
 Zwei Betriebstypen (zum Beispiel Kühl- und Trockenfracht) sitzen in einem Gewerbegebiet. Jeder Betrieb will mindestens den Anteil τ seiner Nachbarn vom eigenen Typ und zieht sonst auf eine freie Fläche. Die Demo zeigt, **wie stark das Gebiet entmischt, wovon es abhängt, ob die Umzüge zur Ruhe kommen, und wie die Entmischung zur Modularität gehört**. Alles sind Modellbefunde über Betriebe als Punkte, keine Aussagen über Städte oder Bevölkerung.
 
 ## Kernfrage
 
-**Wie stark entmischt das Gebiet, und endet das überhaupt?** Der Hook: schon eine **milde Vorliebe** (τ = 30 %) bringt den Anteil gleichartiger Nachbarn von 49,7 % auf 75,6 % (Mittel über 12 Starts, Gitter 30 × 30, 90 % belegt). Ob die Umzüge zur Ruhe kommen, hängt an der **Zugregel**: wer nur auf eine Fläche zieht, auf der er zufrieden wäre, **blockiert** bei hoher Schwelle (ab τ = 70 % in allen 12 Läufen), wer auf eine beliebige freie Fläche zieht, endet bis τ = 70 % in allen Läufen und nicht mehr bei 80 %. Dazu: freie Flächen verstärken die Entmischung, und der **Anteil gleichartiger Kanten ist bis auf eine Konstante die Modularität der Typen-Partition** aus Stück 2 (der Entmischungsindex liegt je nach Raum 0,1 bis 1,5 Prozentpunkte daneben). Alle Ergebnisse sind **Modellbefunde**: Betriebe als Punkte, gleiche Schwelle für alle, Standortwahl nur nach Nachbarn.
+**Wie stark entmischt das Gebiet, und endet das überhaupt?** Der Hook: schon eine **milde Vorliebe** (τ = 30 %) bringt den Anteil gleichartiger Nachbarn von 49,7 % auf 75,6 % (Mittel über 12 Starts, Gitter 30 × 30, 90 % belegt). Ob die Umzüge zur Ruhe kommen, hängt an der **Zugregel**: wer nur auf eine Fläche zieht, auf der er zufrieden wäre, **blockiert** bei hoher Schwelle (ab τ = 70 % in allen 12 Läufen), wer auf eine beliebige freie Fläche zieht, endet bis τ = 70 % in allen Läufen und nicht mehr bei 80 %. Dazu: freie Flächen verstärken die Entmischung, und der **Anteil gleichartiger Kanten ist bis auf eine Konstante die Modularität der Typen-Partition** aus der Blockmodell-Demo (der Entmischungsindex liegt je nach Raum 0,1 bis 1,5 Prozentpunkte daneben). Alle Ergebnisse sind **Modellbefunde**: Betriebe als Punkte, gleiche Schwelle für alle, Standortwahl nur nach Nachbarn.
 
 ## Befunde und Korrekturen gegenüber dem Plan
 
@@ -18,9 +18,9 @@ Zwei Betriebstypen (zum Beispiel Kühl- und Trockenfracht) sitzen in einem Gewer
 - **Exakt nachgerechnet auf kleinen Gittern:** auf 3 × 3 Flächen mit 3 + 3 Betrieben (alle 1680 Belegungen als absorbierende Markov-Kette) sind bei τ = 67 % und 75 % 892 Belegungen blockiert und nur 4 zufrieden; die Regel „zufrieden“ endet nur in 13,1 % der gleichverteilten Starts zufrieden, die Regel „beliebig“ in 100 % nach im Mittel 182,4 Schritten (bei τ = 60 %: 29,75). Die Simulation (je 2000 Starts) stimmt überein (Test: innerhalb von 4,5 Standardfehlern).
 - **Mehr freie Flächen, mehr Entmischung:** bei τ = 37,5 % sinkt der Entmischungsindex von 84,9 % bei 50 % belegten Flächen auf 76,0 % bei 98 %; bei 98 % belegt enden nur 7 von 12 Läufen mit allen zufrieden, 5 blockieren (mit im Mittel 0,16 % unzufriedenen Betrieben, also nur wenigen einzelnen).
 - **Radius 2 wirkt nicht einfach schwächer oder stärker:** bei τ = 30 % entmischt Radius 2 weniger (59,6 % gegen 75,7 %), bei 40 % und 50 % etwas mehr (85,8 % gegen 82,5 % bzw. 89,5 % gegen 87,3 %; in einer Nachprüfung mit 60 Starts um 1 bis 3 Prozentpunkte), und bei 60 % blockieren in beiden Radien einzelne Läufe: Radius 2 in 4 von 12 Läufen (10,1 % unzufrieden im Mittel), Radius 1 in 4 von 12 in Experiment 1, aber 0 von 12 in der Radius-Tabelle von Experiment 2 (andere Zufallsströme); in einer Nachprüfung mit 60 Starts blockierten 10 von 60 bei Radius 1 und 13 von 60 bei Radius 2, ein Unterschied ist nicht gesichert. Die Regel „nächste“ entmischt weniger als „zufrieden“ (72,4 % gegen 77,0 % bei τ = 37,5 %).
-- **Brücke zu Stück 2 (bestätigt): der Anteil gleichartiger Kanten ist die Modularität der Typen-Partition bis auf eine Konstante, der Entmischungsindex liegt nahe daran.** Die Modularität der Typen im Nachbarschaftsnetz ist *Q* = Anteil gleichartiger Kanten − Σ (*D*<sub>*k*</sub> / 2*m*)<sup>2</sup>; in allen 8 Zellen von Experiment 4 liegt sie höchstens 0,001 neben „Anteil gleichartiger Kanten − ½“. Der Entmischungsindex mittelt über Betriebe statt über Kanten und liegt in diesen Zellen 0,1 bis 1,5 Prozentpunkte neben dem Anteil gleichartiger Kanten (Tabelle); in einer Nachprüfung im Potenzgesetz-Netz bis etwa 4 Prozentpunkte.
+- **Brücke zur Modularität (bestätigt): der Anteil gleichartiger Kanten ist die Modularität der Typen-Partition bis auf eine Konstante, der Entmischungsindex liegt nahe daran.** Die Modularität der Typen im Nachbarschaftsnetz ist *Q* = Anteil gleichartiger Kanten − Σ (*D*<sub>*k*</sub> / 2*m*)<sup>2</sup>; in allen 8 Zellen von Experiment 4 liegt sie höchstens 0,001 neben „Anteil gleichartiger Kanten − ½“. Der Entmischungsindex mittelt über Betriebe statt über Kanten und liegt in diesen Zellen 0,1 bis 1,5 Prozentpunkte neben dem Anteil gleichartiger Kanten (Tabelle); in einer Nachprüfung im Potenzgesetz-Netz bis etwa 4 Prozentpunkte.
 - **Auf Netzen mit Verbünden entmischt es stärker, und die Typen richten sich an den Verbünden aus:** bei τ = 50 % 82,9 % im Netz „Verbünde“ gegen 72,2 % im Zufallsnetz (Ring: 88,8 %, Gitter: 87,2 %); die NMI der Typen mit den sechs Verbünden steigt von 0,05 (τ = 30 %) auf 0,29 (τ = 50 %).
-- **Die Plan-Erwartung „Gemeinschaftserkennung findet die Cluster“ trifft nicht zu:** ein Verfahren, das nur das Nachbarschaftsnetz der belegten Flächen sieht (Greedy-Modularitätsmaximierung), findet 6,2 bis 7,8 **räumliche Blöcke** mit Modularität 0,70 bis 0,75 (schon am zufälligen Start 0,70), nicht die Typen: die NMI mit den Typen ist am Ende höchstens 0,05 bis τ = 50 % und erst bei 60 % 0,43 (Modularität der Typen selbst: 0,05 bis 0,47). Die Messung steht nur in `tests/test_claims.py` (mit `networkx`), nicht in der App.
+- **Die Plan-Erwartung „Gemeinschaftserkennung findet die Cluster“ trifft nicht zu:** ein Verfahren, das nur das Nachbarschaftsnetz der belegten Flächen sieht (Greedy-Modularitätsmaximierung), findet 5,8 bis 7,8 **räumliche Blöcke** mit Modularität 0,69 bis 0,75 (schon am zufälligen Start 0,70), nicht die Typen: die NMI mit den Typen ist am Ende höchstens 0,05 bis τ = 50 % und erst bei 60 % 0,43 (Modularität der Typen selbst: 0,05 bis 0,47). Die Messung steht nur in `tests/test_claims.py` (mit `networkx`), nicht in der App.
 - **Wortbedeutung:** „Segregation“ meint in `stapelplanung-demo` und `uld-gefahrgut-demo` die Trennung von Gefahrgütern, hier die räumliche Entmischung zweier Typen; der Suchlauf im Portfolio fand keine andere Demo zu Schelling.
 
 ## Modell
@@ -31,7 +31,7 @@ Gewerbegebiet als **Gitter** (*L* × *L* Flächen, beschränkt, ohne Fortsetzung
 
 | Baustein | Inhalt |
 |---|---|
-| **Räume** | Gitter mit Nachbarschaft nach Radius (eigener Code); die Netze aus Stück 1 als Kopie (Zufallsnetz, Potenzgesetz-Netz, skalenfrei (BA), Verbünde = Gewerbeparks, Ring mit Abkürzungen) |
+| **Räume** | Gitter mit Nachbarschaft nach Radius (eigener Code); die Netze der k-Core-Demo als Kopie (Zufallsnetz, Potenzgesetz-Netz, skalenfrei (BA), Verbünde = Gewerbeparks, Ring mit Abkürzungen) |
 | **Hauptansicht** | Gebiet mit den zwei Typen als Farbe und Ring um die Unzufriedenen, Regler „Schritt“, Verlauf von Entmischungsindex und Anteil Unzufriedener, Kennzahlen (Entmischung, Modularität, Unzufrieden, Cluster, Umzüge, Ende) |
 | **Experiment 1** | Entmischungsindex und Endstatus über τ = 10, 20, 25, 30, 37,5, 40, 50, 60, 70, 80 % je Zugregel (Gitter 30 × 30, 90 % belegt, Radius 1; Mittel bzw. Median über 12 feste Starts) |
 | **Experiment 2** | Regel „zufrieden“, τ = 37,5 %: Entmischungsindex und Endstatus über den belegten Anteil 50 bis 98 %; Radius 1 gegen Radius 2 über τ = 30 bis 60 % |
@@ -40,7 +40,7 @@ Gewerbegebiet als **Gitter** (*L* × *L* Flächen, beschränkt, ohne Fortsetzung
 
 ## Befunde (gemessen, keine Behauptungen)
 
-Alle Zahlen stehen in `tests/test_claims.py`. Messreihen: die zwölf festen Starts `SWEEP_SEEDS` je Zelle, Gitter 30 × 30, 90 % belegt, Radius 1, Obergrenze 60 000 Schritte (Experiment 4: Netze mit 240 Flächen, *c* = 8, 85 % belegt); Anteile im Mittel, Schritte und Umzüge im Median. Die App rechnet dieselben Experimente mit fünf Starts und einer Obergrenze von 30 000 Schritten.
+Alle Zahlen stehen in `tests/test_claims.py`. Messreihen: die zwölf festen Starts `SWEEP_SEEDS` je Zelle, Gitter 30 × 30, 90 % belegt, Radius 1, Obergrenze 60 000 Schritte (Experiment 4: Netze mit 240 Flächen, *c* = 8, 85 % belegt; Gemeinschaftserkennung: fünf Starts); Anteile im Mittel, Schritte und Umzüge im Median. Die App rechnet dieselben Experimente mit fünf Starts und einer Obergrenze von 30 000 Schritten.
 
 | Frage | Befund |
 |---|---|
@@ -48,7 +48,7 @@ Alle Zahlen stehen in `tests/test_claims.py`. Messreihen: die zwölf festen Star
 | **Wie stark wirkt die Schwelle, wann blockiert es?** | Tabellen zu Experiment 1 |
 | **Freie Flächen und Radius?** | Tabellen zu Experiment 2 |
 | **Stimmt die exakte Kette mit der Simulation?** | Tabelle zu Experiment 3 |
-| **Brücke zu Stück 2, Netze?** | Tabelle zu Experiment 4 |
+| **Brücke zur Modularität, Netze?** | Tabelle zu Experiment 4 |
 | **Gemeinschaftserkennung?** | Tabelle unten (nur in `tests/test_claims.py`) |
 | **Standardlauf (Milde Vorliebe, starke Entmischung)** | 810 Betriebe, 90 freie Flächen; Ende „alle zufrieden“ nach 166 Umzügen (166 Schritten): Entmischungsindex 49,9 → 71,1 %, Modularität 0,00 → 0,20, unzufrieden 17,5 → 0,0 %, 11 Cluster (größter 37,9 %) |
 | **Preset Hohe Schwelle: die Betriebe blockieren sich** | 810 Betriebe, 90 freie Flächen; Ende „blockiert“ nach 48 Umzügen (3505 Schritten): Entmischungsindex 49,9 → 53,1 %, Modularität 0,00 → 0,04, unzufrieden 83,0 → 73,2 %, 35 Cluster (größter 41,6 %) |
@@ -101,7 +101,7 @@ Alle Zahlen stehen in `tests/test_claims.py`. Messreihen: die zwölf festen Star
 | 95 | 76,8 | 12 | 0 | 203,5 | 0,00 |
 | 98 | 76,0 | 7 | 5 | 203,0 | 0,16 |
 
-**Experiment 2: Radius** (Regel „zufrieden“, 90 % belegt):
+**Experiment 2: Radius** (Regel „zufrieden“, 90 % belegt; andere Zufallsströme als in Experiment 1, daher z. B. bei τ = 30 % 75,7 % statt 75,6 % für Radius 1):
 
 | Radius | τ (%) | Entmischungsindex am Ende (%) | alle zufrieden (von 12) | blockiert (von 12) | Unzufriedene (%, Mittel) |
 |---|---|---|---|---|---|
@@ -143,7 +143,7 @@ Alle Zahlen stehen in `tests/test_claims.py`. Messreihen: die zwölf festen Star
 | 3 × 4 (2 A, 2 B) | „beliebig“ | 67 | 2970 | 316 | 0 | 100,0 (100,0) % | 5,97 (5,8 ± 0,1) |
 | 3 × 4 (2 A, 2 B) | „beliebig“ | 75 | 2970 | 316 | 0 | 100,0 (100,0) % | 5,97 (6,0 ± 0,1) |
 
-**Experiment 4: Brücke zu Stück 2 und Netze** (Regel „zufrieden“, 85 % belegt; Mittel über 12 feste Netze und Starts; *Q*: Modularität der Typen; NMI nur im Netz „Verbünde“):
+**Experiment 4: Brücke zur Modularität und Netze** (Regel „zufrieden“, 85 % belegt; Mittel über 12 feste Netze und Starts; *Q*: Modularität der Typen; NMI nur im Netz „Verbünde“):
 
 | Raum | τ (%) | Index am Anfang (%) | Index am Ende (%) | Anteil gleichartiger Kanten (%) | *Q* der Typen | NMI mit den Verbünden | alle zufrieden (von 12) | Umzüge (Median) |
 |---|---|---|---|---|---|---|---|---|
@@ -183,7 +183,7 @@ Alle Zahlen stehen in `tests/test_claims.py`. Messreihen: die zwölf festen Star
 
 - **Zwei gleich große Typen, gleiche Schwelle für alle, Standortwahl nur nach Nachbarn:** kein Preis der Fläche, keine Umzugskosten, keine Nähe zu Kunden oder Häfen; mit einem kleinen Typ, mehr als zwei Typen oder verschieden toleranten Betrieben verschieben sich die Schwellen, ab denen es blockiert.
 - **Zufällige Auswahl, ein Umzug je Schritt:** mit gleichzeitigen Umzügen oder anderer Reihenfolge ändern sich Dauer und Blockaden. Die Schritte zählen Versuche, einen Unzufriedenen umzusetzen; Umzüge sind die Versuche mit Erfolg. Eine Blockade wird festgestellt, wenn jeder Unzufriedene seit dem letzten Umzug einmal vergeblich versucht hat; die Schritte blockierter Läufe enthalten diese Prüfversuche.
-- **Beschränktes Gitter, festes Netz:** das Gitter hat Ränder ohne Fortsetzung (Randflächen haben weniger Nachbarn); in der Netz-Variante sind Flächen und Nachbarschaft vorgegeben, nur die Betriebe wandern. Wie sich das Netz selbst zeitlich ändert, ist Thema des nächsten Stücks (zeitliche Netze).
+- **Beschränktes Gitter, festes Netz:** das Gitter hat Ränder ohne Fortsetzung (Randflächen haben weniger Nachbarn); in der Netz-Variante sind Flächen und Nachbarschaft vorgegeben, nur die Betriebe wandern. Wie sich das Netz selbst zeitlich ändert, ist Thema der Demo zu zeitlichen Netzen.
 - **Obergrenze der Schritte:** 60 000 (README-Messreihe) bzw. 30 000 (Experimente der App); „Obergrenze“ heißt nicht „fertig“. Bei „beliebig“ und τ = 80 % erreicht jeder Lauf die Obergrenze, ob er je endet, ist nicht gezeigt.
 - **Stichproben:** zwölf feste Starts in der README (fünf in der App), ein Gitter (30 × 30); in Experiment 4 zwölf feste Netze je Typ mit 240 Flächen; die Streuung zwischen den Läufen ist nicht ausgewiesen. Die exakte Kette gilt nur für Gitter bis 4000 Belegungen (3 × 3 und 3 × 4); die Ergebnisse gelten für diese Größen und übertragen sich nicht ohne Weiteres auf große Gitter.
 - **Anteile an Typ A fest 50 %, ρ ab 30 %:** andere Anteile sind nicht untersucht.

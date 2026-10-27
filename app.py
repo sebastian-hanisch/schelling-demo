@@ -1,8 +1,8 @@
 """Schelling-Segregation: Standortwahl im Gewerbegebiet - interaktive Konzept-Demo
 Sebastian Hanisch - Operations Research und Machine Learning
 
-Zwölftes Stück der Reihe „Netzwerkanalyse“ und viertes des Anpassungs-Arms: zwei Betriebstypen sitzen in einem Gewerbegebiet, und ein Betrieb zieht um, wenn ihm zu wenige Nachbarn
-vom eigenen Typ sind. Die Demo zeigt, wie stark eine milde Vorliebe entmischt, dass die Zugregel entscheidet, ob es endet, und wie die Entmischung zur Modularität aus Stück 2 gehört.
+Eine Demo zur Netzwerkanalyse, die vierte, in der sich Betriebe an Nachbarn anpassen: zwei Betriebstypen sitzen in einem Gewerbegebiet, und ein Betrieb zieht um, wenn ihm zu wenige Nachbarn
+vom eigenen Typ sind. Die Demo zeigt, wie stark eine milde Vorliebe entmischt, dass die Zugregel entscheidet, ob es endet, und wie die Entmischung zur Modularität gehört.
 Aufbau und Regeln stehen im DEMO-PLAYBOOK.md (§2).
 
 Lauffähig mit: streamlit run app.py
@@ -103,18 +103,31 @@ with st.container(key="kopf"):
     st.title("🏭 Schelling-Segregation: Standortwahl im Gewerbegebiet")
 st.markdown(
     """
-**Zwölftes Stück** der Reihe „Netzwerkanalyse“ und viertes und letztes des **Anpassungs-Arms**: in Stück 9 bis 11 ändern die Betriebe ihre Meinung, hier ändern sie **ihren Standort**. Zwei Betriebstypen (zum Beispiel Kühl- und Trockenfracht) sitzen in einem Gewerbegebiet; ein Betrieb zieht um, wenn ihm zu wenige Nachbarn vom eigenen Typ sind. Das Nachbarschaftsnetz ist damit nicht vorgegeben, sondern **entsteht aus dem Verhalten** (anders als in Stück 11, wo das Netz fest war).
+Eine von mehreren Demos zur Netzwerkanalyse, die vierte und letzte, in der sich Betriebe an ihre Nachbarn anpassen: in den Demos zu Meinungsbildung, Voter-Modell und begrenztem Vertrauen ändern die Betriebe ihre Meinung, hier ändern sie **ihren Standort**. Zwei Betriebstypen (zum Beispiel Kühl- und Trockenfracht) sitzen in einem Gewerbegebiet; ein Betrieb zieht um, wenn ihm zu wenige Nachbarn vom eigenen Typ sind. Das Nachbarschaftsnetz ist damit nicht vorgegeben, sondern **entsteht aus dem Verhalten** (anders als in der Demo zu begrenztem Vertrauen, wo das Netz fest war).
 
-Die Kernfrage: **Wie stark entmischt das Gebiet, und endet das überhaupt?** Der Hook: schon eine **milde Vorliebe** (Schwelle τ = 30 %: ein Betrieb will mindestens drei von zehn Nachbarn vom eigenen Typ) entmischt das Gebiet stark. Ob die Umzüge zur Ruhe kommen, hängt dagegen an der **Zugregel**: wer nur auf eine Fläche zieht, auf der er zufrieden wäre, **blockiert** bei hoher Schwelle, wer auf eine beliebige freie Fläche zieht, endet. Dazu: freie Flächen verstärken die Entmischung, und der Anteil gleichartiger Kanten ist bis auf eine Konstante die **Modularität** der Typen-Partition aus Stück 2 (der Entmischungsindex liegt nahe daran). Alle Ergebnisse sind **Modellbefunde** über Betriebe als Punkte mit gleicher Schwelle, keine Aussagen über Städte oder Bevölkerung.
+Die Kernfrage: **Wie stark entmischt das Gebiet, und endet das überhaupt?** Der Hook: schon eine **milde Vorliebe** (Schwelle τ = 30 %: ein Betrieb will mindestens 30 % seiner Nachbarn vom eigenen Typ, im Gitter mit 8 Nachbarn also mindestens drei) entmischt das Gebiet stark. Ob die Umzüge zur Ruhe kommen, hängt dagegen an der **Zugregel**: wer nur auf eine Fläche zieht, auf der er zufrieden wäre, **blockiert** bei hoher Schwelle, wer auf eine beliebige freie Fläche zieht, endet. Dazu: freie Flächen verstärken die Entmischung, und der Anteil gleichartiger Kanten ist bis auf eine Konstante die **Modularität** der Typen-Partition aus der Blockmodell-Demo (der Entmischungsindex liegt nahe daran). Alle Ergebnisse sind **Modellbefunde** über Betriebe als Punkte mit gleicher Schwelle, keine Aussagen über Städte oder Bevölkerung.
 
 Weiter unten: vier Experimente (**🔬**), der Abschnitt **🚧 Wo die Annahmen enden** und der Expander **📐 Mathematische Formulierung**.
 """
 )
 
+# erklaerseite:einfach:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/schelling-segregation-erklaert.json, nicht von Hand ändern)
+with st.expander("💬 In einfachen Worten"):
+    st.markdown(
+        """
+Stellen Sie sich ein Gewerbegebiet mit zwei Sorten Betrieben vor, zum Beispiel Kühl- und Trockenfracht, und mit einigen freien Flächen. Jeder Betrieb schaut nur auf seine unmittelbaren Nachbarn und will, dass ein bestimmter **Anteil** davon zu seiner Sorte gehört. Wird das verfehlt, zieht er auf eine freie Fläche um.
+
+Schon eine **milde Vorliebe**, bei der dem Betrieb eine Minderheit gleichartiger Nachbarn genügt, trennt die Sorten in der Demo stark: Sie sammeln sich in Zonen, obwohl niemand eine Trennung will. Ob die Umzüge je zur Ruhe kommen, hängt von der **Zugregel** ab. Die Demo zeigt beides und prüft es auf kleinen Gittern exakt nach.
+
+[Ausführlich und verständlich erklärt, mit Fachteil](https://sebastianhanisch.net/schelling-segregation-erklaert.html)
+        """
+    )
+# erklaerseite:einfach:end
+
 with st.expander("So funktioniert die Standortwahl", expanded=True):
     st.markdown(
         """
-1. **Gebiet:** ein Gitter aus Flächen (oder ein Netz aus Stück 1); ein Anteil ρ der Flächen ist mit Betrieben belegt, die Hälfte davon Typ A, die andere Typ B, zufällig verteilt. Der Rest ist frei.
+1. **Gebiet:** ein Gitter aus Flächen (oder ein vorgegebenes Netz); ein Anteil ρ der Flächen ist mit Betrieben belegt, die Hälfte davon Typ A, die andere Typ B, zufällig verteilt. Der Rest ist frei.
 2. **Zufrieden:** ein Betrieb ist zufrieden, wenn mindestens der Anteil τ seiner belegten Nachbarn zu seinem Typ gehört. Hat er keine Nachbarn, ist er zufrieden.
 3. **Ein Schritt:** ein zufälliger **unzufriedener** Betrieb versucht umzuziehen, nach der gewählten **Zugregel** (Tabelle unten).
 4. **Ende:** **alle zufrieden**, oder **blockiert** (kein Unzufriedener hat noch eine zulässige Fläche), oder die **Obergrenze** der Schritte ist erreicht.
@@ -143,7 +156,7 @@ with st.sidebar:
     sidebar_presets()  # Schnellstart oben, das aktive Preset ist hervorgehoben
     st.header("⚙️ Einstellungen")
     st.markdown("**Gebiet**")
-    raum = st.selectbox("Gebiet", C.ALL_SPACES, key="raum_select", help="Gitter aus Flächen oder eines der Netze aus Stück 1 (Verbünde: die Gewerbeparks).")
+    raum = st.selectbox("Gebiet", C.ALL_SPACES, key="raum_select", help="Gitter aus Flächen oder eines der vorgegebenen Netze (Verbünde: die Gewerbeparks).")
     grid = raum == C.T_GRID
     l = st.slider("Kantenlänge L des Gitters", *bounds("l_slider"), key="l_slider", disabled=not grid, help="Das Gitter hat L × L Flächen, ohne Rand-Fortsetzung.")
     n = st.slider("Flächen im Netz n", *bounds("n_slider"), key="n_slider", disabled=grid, help="Zahl der Flächen im Netz (Knoten).")
@@ -258,7 +271,7 @@ experiment("exact", "Exakt rechnen", "fest", _exact, show_exact, f"Rechnet 2 Git
 
 st.markdown("---")
 
-st.subheader("🔬 Experiment 4: Brücke zu Stück 2 und Netze")
+st.subheader("🔬 Experiment 4: Brücke zur Modularität und Netze")
 st.caption(f"Regel „zufrieden“, belegter Anteil {pct(C.BRIDGE_RHO)} %, Schwellen τ = {', '.join(tp(t) for t in C.BRIDGE_TAUS)}; Gitter {l_exp} × {l_exp} (Radius 1) und Netze mit {C.BRIDGE_N} Flächen, c = {C.BRIDGE_C}. Mittel über {C.LIVE_RUNS} feste Netze und Starts.")
 
 
@@ -287,7 +300,7 @@ st.markdown(
 | **Standortwahl nur nach Nachbarn** | Kein Preis der Fläche, keine Umzugskosten, keine Nähe zu Kunden oder Häfen. Ein Betrieb zieht, wenn ihm die Nachbarn nicht passen, sonst nie. | – |
 | **Zufällige Auswahl, ein Umzug je Schritt** | Ein zufälliger Unzufriedener versucht einen Umzug. Mit gleichzeitigen Umzügen oder einer anderen Reihenfolge ändern sich Dauer und Blockaden. | – |
 | **Beschränktes Gitter** | Das Gitter hat Ränder ohne Fortsetzung; Randflächen haben weniger Nachbarn. Am Rand ist Zufriedenheit leichter oder schwerer als innen. | – |
-| **Festes Netz in der Netz-Variante** | Die Flächen und ihre Nachbarschaft sind vorgegeben; nur die Betriebe wandern. Wie sich das Netz zeitlich selbst ändert, zeigt das nächste Stück. | Stück 13 (zeitliche Netze) |
+| **Festes Netz in der Netz-Variante** | Die Flächen und ihre Nachbarschaft sind vorgegeben; nur die Betriebe wandern. Wie sich das Netz zeitlich selbst ändert, zeigt die Demo zu zeitlichen Netzen. | Demo zu zeitlichen Netzen |
 | **Obergrenze der Schritte** | Läufe enden spätestens nach 60 000 Schritten (in der App nach 30 000 in den Experimenten); „Obergrenze“ heißt nicht „fertig“. | – |
 | **Stichproben** | Mittel über fünf feste Starts in der App (zwölf in der README); die Streuung ist nicht ausgewiesen. Das exakte Ergebnis gilt nur für die kleinen Gitter. | – |
 | **Modellbefund** | Die Demo zeigt Verhalten im Modell, keine Wirkung in einer Stadt oder Bevölkerung. Die Betriebstypen sind eine Kulisse für das Modell, kein Befund über Standortentscheidungen. | – |
@@ -297,6 +310,29 @@ st.markdown(
 st.markdown("---")
 
 with st.expander("📐 Mathematische Formulierung"):
+    # erklaerseite:lesehilfe:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/schelling-segregation-erklaert.json, nicht von Hand ändern)
+    st.markdown(
+        r"""
+**Lesehilfe.** Gegeben sind ein Gitter oder Netz aus Flächen, Betriebe zweier Typen (und freie Flächen) und eine Toleranzschwelle $\tau$. Gesucht ist, wie stark das Gebiet nach den Umzügen entmischt ist und ob die Umzüge enden.
+
+| Symbol | Bedeutung |
+|---|---|
+| $N(i)$ | Nachbarn der Fläche $i$ (bei Radius 1 die 8 Flächen ringsum) |
+| $\theta_i$ | Typ auf der Fläche $i$: 1 oder 2, 0 bedeutet frei |
+| $\tau$ | Toleranzschwelle: Mindestanteil gleichartiger unter den belegten Nachbarn |
+| $s_i$, $o_i$ | gleichartige bzw. alle belegten Nachbarn des Betriebs $i$ |
+| $V'$ | Menge der Betriebe mit mindestens einem Nachbarn |
+| $S$ | Entmischungsindex: mittlerer Anteil gleichartiger Nachbarn (zufällig verteilt etwa $0{,}5$, bei Trennung ohne Grenzkontakt $1$) |
+| $e_{\text{in}}$, $m$ | Anteil gleichartiger Kanten bzw. Zahl der Kanten im Nachbarschaftsnetz |
+| $D_k$ | Gradsumme der Betriebe vom Typ $k$ |
+| $Q$ | Modularität der Typen-Partition |
+| $Q_T$, $R$ | Übergänge der Kette zwischen nicht absorbierenden Zuständen bzw. in absorbierende Zustände |
+| $B$ | Wahrscheinlichkeiten, in welchem absorbierenden Zustand die Kette endet |
+
+[Schritt für Schritt erklärt, mit Herleitung und Literatur](https://sebastianhanisch.net/schelling-segregation-erklaert.html#fachleute)
+        """
+    )
+    # erklaerseite:lesehilfe:end
     st.markdown(
         r"""
 **Zufrieden.** Mit der Nachbarmenge $N(i)$ der Fläche $i$, den Typen $\theta_j \in \{0, 1, 2\}$ (0 = frei) und der Toleranzschwelle $\tau$ ist der Betrieb auf $i$ zufrieden, wenn
@@ -309,7 +345,7 @@ gilt; ohne belegte Nachbarn ist er zufrieden. Verglichen wird mit der Toleranz $
 
 $$S = \frac{1}{|V'|} \sum_{i \in V'} \frac{s_i}{o_i}$$
 
-**Brücke zu Stück 2 (Modularität der Typen).** Im Nachbarschaftsnetz der belegten Flächen mit $m$ Kanten, dem Anteil $e_{\text{in}}$ gleichartiger Kanten und den Gradsummen $D_k$ der Typen $k \in \{A, B\}$ ist die Modularität der Typen-Partition
+**Brücke zur Modularität (Typen-Partition).** Im Nachbarschaftsnetz der belegten Flächen mit $m$ Kanten, dem Anteil $e_{\text{in}}$ gleichartiger Kanten und den Gradsummen $D_k$ der Typen $k \in \{A, B\}$ ist die Modularität der Typen-Partition
 
 $$Q = e_{\text{in}} - \sum_{k \in \{A, B\}} \left( \frac{D_k}{2m} \right)^2$$
 
